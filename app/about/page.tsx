@@ -10,15 +10,6 @@ const VALUES = [
   { icon: Award, title: "Quality Assurance", desc: "Every repair is tested before handover. Every product sold carries a warranty." },
 ];
 
-const TIMELINE = [
-  { year: "2019", event: "Alphatech founded in Osogbo, Osun State with a focus on laptop and desktop repair." },
-  { year: "2021", event: "Expanded services to include custom PC builds, networking and business IT support." },
-  { year: "2022", event: "Opened second service point in Akure, Ondo State to serve more customers." },
-  { year: "2023", event: "Launched computer sales — new, refurbished and custom-built systems." },
-  { year: "2024", event: "Passed 1,000 successful repairs. Grew team of certified engineers." },
-  { year: "2026", event: "Launched this website to serve customers across Southwest Nigeria." },
-];
-
 export default async function AboutPage() {
   const s = await getAllSettings();
 
@@ -75,24 +66,17 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="bg-white py-20">
-        <div className="max-w-3xl mx-auto px-5 lg:px-8">
-          <p className="font-mono text-xs text-blue-700 tracking-widest text-center">OUR JOURNEY</p>
-          <h2 className="font-display font-bold text-3xl text-slate-900 mt-2 text-center mb-12">How we got here</h2>
-          <div className="relative">
-            <div className="absolute left-16 top-0 bottom-0 w-px bg-slate-200" />
-            <div className="space-y-8">
-              {TIMELINE.map((t) => (
-                <div key={t.year} className="flex gap-6 items-start">
-                  <div className="w-12 shrink-0 text-right">
-                    <span className="font-mono text-xs font-bold text-blue-700">{t.year}</span>
-                  </div>
-                  <div className="h-3 w-3 rounded-full bg-blue-700 shrink-0 mt-0.5 relative z-10" />
-                  <p className="font-body text-sm text-slate-600 leading-relaxed">{t.event}</p>
-                </div>
-              ))}
-            </div>
+      {/* Founder quote */}
+      <section className="bg-blue-700 py-20">
+        <div className="max-w-3xl mx-auto px-5 lg:px-8 text-center">
+          <div className="text-6xl text-blue-400 font-serif leading-none mb-6">&ldquo;</div>
+          <blockquote className="font-display font-semibold text-2xl lg:text-3xl text-white leading-relaxed">
+            Technology should never be a barrier. Our job is to make sure every device works, every network runs, and every customer walks away with a solution — not a problem.
+          </blockquote>
+          <div className="mt-8">
+            <div className="h-px w-16 bg-blue-400 mx-auto mb-5" />
+            <p className="font-body font-semibold text-white">Abdullateef Raji</p>
+            <p className="font-mono text-xs text-blue-200 tracking-widest mt-1">FOUNDER, ALPHATECH COMPUTER ENGINEERING & TECHNOLOGIES</p>
           </div>
         </div>
       </section>

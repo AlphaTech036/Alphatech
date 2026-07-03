@@ -42,7 +42,7 @@ export default function ContactForm() {
         </div>
         <h2 className="font-display font-bold text-xl text-slate-900">Message sent!</h2>
         <p className="font-body text-slate-500 mt-2 max-w-xs">
-          We've received your message and will get back to you within a few hours.
+          We&apos;'ve received your message and will get back to you within a few hours.
         </p>
       </div>
     );
