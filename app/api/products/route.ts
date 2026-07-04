@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // app/api/products/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
@@ -58,3 +59,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to create product" }, { status: 500 });
   }
 }
+

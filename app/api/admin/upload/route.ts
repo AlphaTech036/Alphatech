@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // app/api/admin/upload/route.ts
 // Image upload using Cloudinary free tier.
 // Add to .env.local:
@@ -62,3 +63,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message ?? "Upload failed" }, { status: 500 });
   }
 }
+

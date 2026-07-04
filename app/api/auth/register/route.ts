@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // app/api/auth/register/route.ts
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
@@ -43,3 +44,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
+

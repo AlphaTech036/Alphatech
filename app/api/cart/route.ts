@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // app/api/cart/route.ts
 // Cart is stored client-side in localStorage (via Zustand) for speed.
 // On checkout, the cart contents are sent to /api/orders to create a real order.
@@ -7,3 +8,4 @@ import { NextResponse } from "next/server";
 export async function GET() {
   return NextResponse.json({ message: "Cart is managed client-side via Zustand store." });
 }
+

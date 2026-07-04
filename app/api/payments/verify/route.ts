@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // app/api/payments/verify/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
@@ -62,3 +63,4 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: err.message ?? "Verification failed" }, { status: 500 });
   }
 }
+
