@@ -1,4 +1,6 @@
 // app/page.tsx
+export const dynamic = "force-dynamic";
+
 import { getAllSettings } from "@/lib/site-settings";
 import Hero from "@/components/home/Hero";
 import TrustStrip from "@/components/home/TrustStrip";

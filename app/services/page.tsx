@@ -1,4 +1,6 @@
 // app/services/page.tsx
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import {
   Laptop, Monitor, HardDrive, Cpu, Network,

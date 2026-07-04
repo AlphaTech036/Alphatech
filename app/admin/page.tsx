@@ -1,4 +1,6 @@
 // app/admin/page.tsx
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import { Users, Package, ShoppingCart, Wrench, MessageSquare, TrendingUp, Clock } from "lucide-react";
 import Link from "next/link";

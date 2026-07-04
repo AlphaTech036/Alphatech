@@ -1,4 +1,6 @@
 // app/store/page.tsx
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/store/ProductCard";
 import StoreFilters from "@/components/store/StoreFilters";

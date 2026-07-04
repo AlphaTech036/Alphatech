@@ -1,4 +1,6 @@
 // app/product/[slug]/page.tsx
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/store/AddToCartButton";

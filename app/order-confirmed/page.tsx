@@ -1,4 +1,6 @@
 // app/order-confirmed/page.tsx
+export const dynamic = "force-dynamic";
+
 "use client";
 
 import { useEffect, useState, Suspense } from "react";

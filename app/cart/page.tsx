@@ -1,4 +1,6 @@
 // app/cart/page.tsx
+export const dynamic = "force-dynamic";
+
 "use client";
 
 import Link from "next/link";

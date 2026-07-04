@@ -1,4 +1,6 @@
 // app/about/page.tsx
+export const dynamic = "force-dynamic";
+
 import { getAllSettings } from "@/lib/site-settings";
 import { ShieldCheck, Cpu, Users, Award } from "lucide-react";
 import Link from "next/link";

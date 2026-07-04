@@ -1,4 +1,6 @@
 // app/contact/page.tsx
+export const dynamic = "force-dynamic";
+
 import { getAllSettings } from "@/lib/site-settings";
 import ContactForm from "@/components/contact/ContactForm";
 import { MapPin, Phone, Mail, MessageCircle, Clock } from "lucide-react";
