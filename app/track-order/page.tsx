@@ -1,7 +1,6 @@
 // app/track-order/page.tsx
-export const dynamic = "force-dynamic";
-
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
