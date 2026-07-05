@@ -57,16 +57,25 @@ export const SETTING_DEFAULTS: Record<string, string> = {
 
 // Get all settings, falling back to defaults for missing keys
 export async function getAllSettings(): Promise<Record<string, string>> {
-  const rows = await prisma.siteSetting.findMany();
-  const db: Record<string, string> = {};
-  rows.forEach((r) => { db[r.key] = r.value; });
-  return { ...SETTING_DEFAULTS, ...db };
+  try {
+    const rows = await prisma.siteSetting.findMany();
+    const db: Record<string, string> = {};
+    rows.forEach((r) => { db[r.key] = r.value; });
+    return { ...SETTING_DEFAULTS, ...db };
+  } catch (err) {
+    return { ...SETTING_DEFAULTS };
+  }
 }
+
 
 // Get a single setting value
 export async function getSetting(key: string): Promise<string> {
-  const row = await prisma.siteSetting.findUnique({ where: { key } });
-  return row?.value ?? SETTING_DEFAULTS[key] ?? "";
+  try {
+    const row = await prisma.siteSetting.findUnique({ where: { key } });
+    return row?.value ?? SETTING_DEFAULTS[key] ?? "";
+  } catch (err) {
+    return SETTING_DEFAULTS[key] ?? "";
+  }
 }
 
 // Update one or many settings
