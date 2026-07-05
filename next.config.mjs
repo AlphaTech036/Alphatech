@@ -6,7 +6,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: "standalone",
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
+  },
   images: {
     remotePatterns: [
       {
