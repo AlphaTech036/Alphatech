@@ -6,9 +6,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
+  output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -18,5 +16,3 @@ const nextConfig = {
     ],
   },
 };
-
-export default nextConfig;
