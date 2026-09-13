@@ -2,6 +2,7 @@
 export const dynamic = "force-dynamic";
 
 import { getAllSettings } from "@/lib/site-settings";
+import { prisma } from "@/lib/prisma";
 import Hero from "@/components/home/Hero";
 import TrustStrip from "@/components/home/TrustStrip";
 import Services from "@/components/home/Services";
@@ -12,7 +13,17 @@ import Testimonials from "@/components/home/Testimonials";
 import Newsletter from "@/components/home/Newsletter";
 
 export default async function HomePage() {
-  const s = await getAllSettings();
+  const [s, featuredProducts] = await Promise.all([
+    getAllSettings(),
+    prisma.product.findMany({
+      where: { isFeatured: true },
+      take: 8,
+      orderBy: { createdAt: "desc" },
+      include: {
+        reviews: { select: { rating: true } },
+      },
+    }),
+  ]);
 
   return (
     <main>
@@ -23,14 +34,19 @@ export default async function HomePage() {
         ctaPrimary={s["hero.cta_primary"]}
         ctaSecondary={s["hero.cta_secondary"]}
       />
-      <TrustStrip
-        repairs={s["trust.repairs"]}
-        turnaround={s["trust.turnaround"]}
-        warranty={s["trust.warranty"]}
-        rating={s["trust.rating"]}
-      />
       <Services />
-      <FeaturedProducts />
+      <FeaturedProducts
+        products={featuredProducts.map(p => ({
+          id: p.id,
+          slug: p.slug,
+          name: p.name,
+          price: p.price,
+          compareAtPrice: p.compareAtPrice,
+          condition: p.condition,
+          images: p.images,
+          reviews: p.reviews,
+        }))}
+      />
       <WhyChooseUs
         title={s["why.title"]}
         pillars={[

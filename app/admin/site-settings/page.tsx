@@ -23,7 +23,7 @@ const SECTIONS = [
     desc: "The big headline and buttons at the top of the homepage.",
     fields: [
       { key: "hero.headline_line1", label: "Headline line 1", type: "text" },
-      { key: "hero.headline_line2", label: "Headline line 2 (blue gradient text)", type: "text" },
+      { key: "hero.headline_line2", label: "Headline line 2 (highlighted text)", type: "text" },
       { key: "hero.subheadline", label: "Sub-headline paragraph", type: "textarea" },
       { key: "hero.cta_primary", label: "Primary button text", type: "text" },
       { key: "hero.cta_secondary", label: "Secondary button text", type: "text" },
@@ -32,7 +32,7 @@ const SECTIONS = [
   {
     key: "trust",
     title: "Trust Statistics",
-    desc: "The four stats shown below the hero (repairs, turnaround, warranty, rating).",
+    desc: "The four stats shown below the hero.",
     fields: [
       { key: "trust.repairs", label: "Repairs completed", type: "text" },
       { key: "trust.turnaround", label: "Average turnaround", type: "text" },
@@ -70,7 +70,7 @@ const SECTIONS = [
   {
     key: "contact",
     title: "Contact Information",
-    desc: "Phone numbers, email, WhatsApp and locations shown in the footer and contact page.",
+    desc: "Phone numbers, email, WhatsApp and locations.",
     fields: [
       { key: "contact.phone1", label: "Phone number 1", type: "text" },
       { key: "contact.phone2", label: "Phone number 2", type: "text" },
@@ -80,6 +80,19 @@ const SECTIONS = [
       { key: "contact.location2", label: "Location 2", type: "text" },
       { key: "contact.hours_weekday", label: "Weekday hours", type: "text" },
       { key: "contact.hours_saturday", label: "Saturday hours", type: "text" },
+    ],
+  },
+  {
+    key: "social",
+    title: "Social Media",
+    desc: "Links shown in the footer. Leave blank to hide a platform.",
+    fields: [
+      { key: "social.facebook", label: "Facebook page URL", type: "text" },
+      { key: "social.instagram", label: "Instagram profile URL", type: "text" },
+      { key: "social.twitter", label: "X (Twitter) profile URL", type: "text" },
+      { key: "social.tiktok", label: "TikTok profile URL", type: "text" },
+      { key: "social.youtube", label: "YouTube channel URL", type: "text" },
+      { key: "social.linkedin", label: "LinkedIn page URL", type: "text" },
     ],
   },
   {
@@ -119,8 +132,7 @@ export default function SiteSettingsPage() {
     setSaving(true);
     setSaved(false);
     const payload = { ...settings };
-    if (logoImages.length > 0) payload["site.logo_url"] = logoImages[0];
-    else payload["site.logo_url"] = "";
+    payload["site.logo_url"] = logoImages.length > 0 ? logoImages[0] : "";
 
     await fetch("/api/admin/site-settings", {
       method: "POST",
@@ -140,23 +152,23 @@ export default function SiteSettingsPage() {
     );
   }
 
-  const inputClass = "w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-4 py-2.5 font-body text-sm focus:outline-none focus:border-sky-400";
-  const labelClass = "font-body text-xs text-slate-400 block mb-1.5";
+  const inputClass = "w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-sky-400";
+  const labelClass = "text-xs text-slate-400 block mb-1.5";
 
   return (
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display font-bold text-2xl text-white">Site Settings</h1>
-          <p className="font-body text-sm text-slate-400 mt-1">
+          <h1 className="font-bold text-2xl text-white">Site Settings</h1>
+          <p className="text-sm text-slate-400 mt-1">
             Edit any text, logo or contact info on your website — changes go live instantly.
           </p>
         </div>
         <button
           onClick={handleSave}
           disabled={saving}
-          className={`flex items-center gap-2 font-body font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors ${
-            saved ? "bg-green-600 text-white" : "bg-orange-500 hover:bg-orange-600 text-white disabled:opacity-60"
+          className={`flex items-center gap-2 font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors ${
+            saved ? "bg-green-600 text-white" : "bg-sky-500 hover:bg-sky-600 text-white disabled:opacity-60"
           }`}
         >
           {saving ? <Loader className="h-4 w-4 animate-spin" /> : saved ? <Check className="h-4 w-4" /> : <Save className="h-4 w-4" />}
@@ -165,16 +177,15 @@ export default function SiteSettingsPage() {
       </div>
 
       <div className="flex gap-6 items-start">
-        {/* Section nav */}
         <aside className="w-44 shrink-0 sticky top-6">
           <nav className="space-y-1">
             {SECTIONS.map((s) => (
               <button
                 key={s.key}
                 onClick={() => setActiveSection(s.key)}
-                className={`w-full text-left px-3 py-2 rounded-lg font-body text-sm transition-colors ${
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   activeSection === s.key
-                    ? "bg-blue-700 text-white"
+                    ? "bg-sky-500 text-white"
                     : "text-slate-400 hover:text-white hover:bg-slate-800"
                 }`}
               >
@@ -184,32 +195,20 @@ export default function SiteSettingsPage() {
           </nav>
         </aside>
 
-        {/* Settings form */}
         <div className="flex-1 min-w-0 space-y-5">
           {SECTIONS.filter((s) => s.key === activeSection).map((section) => (
             <div key={section.key} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <h2 className="font-display font-semibold text-white mb-1">{section.title}</h2>
-              <p className="font-body text-xs text-slate-500 mb-5">{section.desc}</p>
+              <h2 className="font-semibold text-white mb-1">{section.title}</h2>
+              <p className="text-xs text-slate-500 mb-5">{section.desc}</p>
 
-              {/* Logo uploader — only in brand section */}
               {section.key === "brand" && (
                 <div className="mb-5 pb-5 border-b border-slate-800">
                   <ImageUploader
                     images={logoImages}
-                    onImagesChange={(urls) => {
-                      setLogoImages(urls);
-                      if (urls.length > 0) update("site.logo_url", urls[0]);
-                      else update("site.logo_url", "");
-                    }}
+                    onImagesChange={(urls) => setLogoImages(urls)}
                     maxImages={1}
-                    label="Logo image — upload your PNG/SVG logo (shown in navbar and footer)"
+                    label="Logo image — upload your circle logo (shown in navbar and footer)"
                   />
-                  {settings["site.logo_url"] && (
-                    <div className="mt-3 flex items-center gap-3">
-                      <Globe className="h-4 w-4 text-slate-500" />
-                      <p className="font-mono text-xs text-slate-500 truncate">{settings["site.logo_url"]}</p>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -229,6 +228,7 @@ export default function SiteSettingsPage() {
                         type="text"
                         value={settings[field.key] ?? ""}
                         onChange={(e) => update(field.key, e.target.value)}
+                        placeholder={field.key.startsWith("social.") ? "https://..." : ""}
                         className={inputClass}
                       />
                     )}
@@ -242,8 +242,8 @@ export default function SiteSettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className={`flex items-center gap-2 font-body font-semibold px-6 py-3 rounded-xl transition-colors ${
-                saved ? "bg-green-600 text-white" : "bg-orange-500 hover:bg-orange-600 text-white disabled:opacity-60"
+              className={`flex items-center gap-2 font-semibold px-6 py-3 rounded-xl transition-colors ${
+                saved ? "bg-green-600 text-white" : "bg-sky-500 hover:bg-sky-600 text-white disabled:opacity-60"
               }`}
             >
               {saving ? <Loader className="h-4 w-4 animate-spin" /> : saved ? <Check className="h-4 w-4" /> : <Save className="h-4 w-4" />}

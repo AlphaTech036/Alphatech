@@ -1,14 +1,11 @@
 // lib/site-settings.ts
-// Helper functions for reading and writing site settings from the database.
-// Admin can edit all of these from /admin/site-settings.
-
 import { prisma } from "@/lib/prisma";
 
 export const SETTING_DEFAULTS: Record<string, string> = {
   // Brand
   "site.name": "Alphatech Computer Engineering & Technologies",
   "site.tagline": "Reliable solutions. Technology that works.",
-  "site.logo_url": "", // URL of uploaded logo image
+  "site.logo_url": "",
 
   // Hero section
   "hero.headline_line1": "Technology that works.",
@@ -50,12 +47,19 @@ export const SETTING_DEFAULTS: Record<string, string> = {
   "contact.hours_weekday": "Monday – Friday: 9 AM – 5 PM",
   "contact.hours_saturday": "Saturday: 10 AM – 4 PM",
 
+  // Social media
+  "social.facebook": "",
+  "social.instagram": "",
+  "social.twitter": "",
+  "social.tiktok": "",
+  "social.youtube": "",
+  "social.linkedin": "",
+
   // Newsletter
   "newsletter.headline": "Get repair tips & product drops in your inbox",
   "newsletter.subtext": "No spam — just useful maintenance guides and early access to new stock.",
 };
 
-// Get all settings, falling back to defaults for missing keys
 export async function getAllSettings(): Promise<Record<string, string>> {
   try {
     const rows = await prisma.siteSetting.findMany();
@@ -67,8 +71,6 @@ export async function getAllSettings(): Promise<Record<string, string>> {
   }
 }
 
-
-// Get a single setting value
 export async function getSetting(key: string): Promise<string> {
   try {
     const row = await prisma.siteSetting.findUnique({ where: { key } });
@@ -78,7 +80,6 @@ export async function getSetting(key: string): Promise<string> {
   }
 }
 
-// Update one or many settings
 export async function updateSettings(data: Record<string, string>) {
   await Promise.all(
     Object.entries(data).map(([key, value]) =>
