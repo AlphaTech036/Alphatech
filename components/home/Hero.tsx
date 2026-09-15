@@ -15,8 +15,7 @@ const SLIDES = [
     ctaHref: "/book-repair",
     secondary: "Shop Computers",
     secondaryHref: "/store",
-    image: "https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=800&q=80",
-    category: "REPAIR SERVICES",
+    image: "https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=1000&q=80",
   },
   {
     badge: "NEW & REFURBISHED COMPUTERS",
@@ -27,8 +26,7 @@ const SLIDES = [
     ctaHref: "/store?category=laptops",
     secondary: "View All Products",
     secondaryHref: "/store",
-    image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80",
-    category: "COMPUTERS & LAPTOPS",
+    image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=1000&q=80",
   },
   {
     badge: "ACCESSORIES & GADGETS",
@@ -39,8 +37,7 @@ const SLIDES = [
     ctaHref: "/store?category=accessories",
     secondary: "Book a Repair",
     secondaryHref: "/book-repair",
-    image: "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=800&q=80",
-    category: "ACCESSORIES",
+    image: "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=1000&q=80",
   },
   {
     badge: "BUSINESS IT SOLUTIONS",
@@ -51,8 +48,7 @@ const SLIDES = [
     ctaHref: "/contact",
     secondary: "Our Services",
     secondaryHref: "/services",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
-    category: "IT SOLUTIONS",
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1000&q=80",
   },
 ];
 
@@ -65,9 +61,9 @@ const TICKET_STEPS = [
 
 const TRUST_BADGES = [
   { label: "Swift Delivery", sub: "Nationwide delivery", emoji: "🚚" },
-  { label: "Low Price Guarantee", sub: "Very competitive prices", emoji: "💰" },
-  { label: "Satisfaction Guaranteed", sub: "Products & services", emoji: "✅" },
-  { label: "Secure Payment", sub: "Paystack, transfer & more", emoji: "🔒" },
+  { label: "Low Price Guarantee", sub: "Very competitive prices", emoji: "💎" },
+  { label: "Satisfaction Guaranteed", sub: "Products & services", emoji: "✨" },
+  { label: "Secure Payment", sub: "Paystack, transfer & more", emoji: "🛡️" },
 ];
 
 export default function Hero({
@@ -80,7 +76,7 @@ export default function Hero({
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => goTo((current + 1) % SLIDES.length), 5000);
+    const timer = setInterval(() => goTo((current + 1) % SLIDES.length), 5500);
     return () => clearInterval(timer);
   }, [current]);
 
@@ -95,52 +91,54 @@ export default function Hero({
 
   return (
     <>
-      {/* Main Hero Slideshow */}
-      <section className="relative bg-[#0c1a2e] overflow-hidden min-h-[500px]">
-        {/* Background image */}
+      {/* Main Hero Slideshow — lighter, softer background */}
+      <section className="relative bg-gradient-to-br from-[#0f2138] via-[#0c1a2e] to-[#0a1628] overflow-hidden min-h-[520px]">
+        {/* Background image — lighter opacity, blurred */}
         <div className="absolute inset-0 transition-all duration-700">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={slide.image}
             alt=""
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-[0.35] blur-[2px] scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0c1a2e] via-[#0c1a2e]/90 to-[#0c1a2e]/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0c1a2e]/95 via-[#0c1a2e]/75 to-[#0c1a2e]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c1a2e]/60 via-transparent to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 py-12 lg:py-16 grid lg:grid-cols-2 gap-8 items-center">
-          {/* Left content */}
+        <div className="relative max-w-7xl mx-auto px-4 py-14 lg:py-20 grid lg:grid-cols-2 gap-8 items-center">
           <div className={`transition-all duration-500 ${isAnimating ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"}`}>
-            <span className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/40 text-sky-400 text-[10px] font-semibold px-3 py-1.5 rounded-full tracking-widest mb-4">
+            <span className="inline-flex items-center gap-2 bg-sky-400/10 backdrop-blur-sm border border-sky-400/25 text-sky-300 text-[10px] font-semibold px-3 py-1.5 rounded-full tracking-widest mb-5">
               <span className="h-1.5 w-1.5 bg-sky-400 rounded-full animate-pulse" />
               {slide.badge}
             </span>
 
-            <h1 className="font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
+            <h1 className="font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.15]">
               {headline1 || slide.headline}
               <br />
-              <span className="text-sky-400">{headline2 || slide.highlight}</span>
+              <span className="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">
+                {headline2 || slide.highlight}
+              </span>
             </h1>
 
-            <p className="text-slate-300 text-base mt-4 max-w-lg leading-relaxed">
+            <p className="text-slate-300/90 text-base mt-5 max-w-lg leading-relaxed">
               {subheadline || slide.sub}
             </p>
 
-            <div className="flex flex-wrap gap-3 mt-6">
+            <div className="flex flex-wrap gap-3 mt-7">
               <Link href={slide.ctaHref}
-                className="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-sky-500/30 text-sm">
+                className="bg-sky-500 hover:bg-sky-400 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-xl shadow-sky-500/25 text-sm">
                 {ctaPrimary || slide.cta} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href={slide.secondaryHref}
-                className="border border-sky-500/50 hover:border-sky-400 text-sky-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all text-sm">
+                className="bg-white/5 backdrop-blur-sm border border-white/15 hover:border-sky-400/50 text-white font-semibold px-6 py-3 rounded-xl transition-all text-sm">
                 {ctaSecondary || slide.secondary}
               </Link>
             </div>
 
-            {/* Slide indicators */}
-            <div className="flex items-center gap-2 mt-8">
+            <div className="flex items-center gap-2 mt-9">
               {SLIDES.map((_, i) => (
                 <button key={i} onClick={() => goTo(i)}
-                  className={`transition-all rounded-full ${i === current ? "w-6 h-2 bg-sky-400" : "w-2 h-2 bg-slate-600 hover:bg-slate-400"}`}
+                  className={`transition-all rounded-full ${i === current ? "w-7 h-1.5 bg-sky-400" : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"}`}
                 />
               ))}
             </div>
@@ -148,29 +146,29 @@ export default function Hero({
 
           {/* Right — repair ticket card */}
           <div className="relative hidden lg:block">
-            <div className="bg-white/5 backdrop-blur border border-sky-500/20 rounded-2xl p-6 shadow-2xl">
+            <div className="bg-white/[0.06] backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl">
               <div className="flex items-center justify-between mb-4">
                 <p className="text-slate-400 text-xs font-semibold tracking-widest">REPAIR TICKET</p>
-                <p className="font-mono text-xs text-sky-400 bg-sky-500/10 px-2 py-1 rounded">ALP-RP-2026-0341</p>
+                <p className="font-mono text-xs text-sky-300 bg-sky-400/10 px-2 py-1 rounded-lg">ALP-RP-2026-0341</p>
               </div>
               <div className="space-y-3">
                 {TICKET_STEPS.map((s) => (
                   <div key={s.label} className="flex items-center gap-3">
                     <div className={`h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-xs ${
                       s.done ? "bg-sky-500 text-white"
-                      : s.active ? "bg-orange-500 text-white"
-                      : "bg-slate-800 border border-slate-600 text-slate-600"
+                      : s.active ? "bg-amber-500 text-white"
+                      : "bg-white/5 border border-white/10 text-slate-600"
                     }`}>
                       {s.done ? <Check className="h-3.5 w-3.5" /> : s.active ? "3" : "4"}
                     </div>
                     <p className={`text-sm font-medium ${s.done || s.active ? "text-white" : "text-slate-500"}`}>
                       {s.label}
                     </p>
-                    {s.active && <span className="ml-auto text-[10px] text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded-full">In progress</span>}
+                    {s.active && <span className="ml-auto text-[10px] text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded-full">In progress</span>}
                   </div>
                 ))}
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-700">
+              <div className="mt-4 pt-4 border-t border-white/10">
                 <div className="flex justify-between text-xs text-slate-400">
                   <span>Device: HP Pavilion 15</span>
                   <span>Est. 24hrs</span>
@@ -178,14 +176,13 @@ export default function Hero({
               </div>
             </div>
 
-            {/* Slide prev/next buttons */}
             <div className="absolute -left-12 top-1/2 -translate-y-1/2 flex flex-col gap-2">
               <button onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)}
-                className="h-8 w-8 rounded-full bg-white/10 hover:bg-sky-500 text-white flex items-center justify-center transition-all">
+                className="h-8 w-8 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-sky-500 hover:border-sky-500 text-white flex items-center justify-center transition-all">
                 <ChevronLeft className="h-4 w-4" />
               </button>
               <button onClick={() => goTo((current + 1) % SLIDES.length)}
-                className="h-8 w-8 rounded-full bg-white/10 hover:bg-sky-500 text-white flex items-center justify-center transition-all">
+                className="h-8 w-8 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-sky-500 hover:border-sky-500 text-white flex items-center justify-center transition-all">
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
@@ -194,11 +191,11 @@ export default function Hero({
       </section>
 
       {/* Trust badges bar */}
-      <section className="bg-white border-b border-slate-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-3">
+      <section className="bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {TRUST_BADGES.map((b) => (
-              <div key={b.label} className="flex items-center gap-2.5">
+              <div key={b.label} className="flex items-center gap-3">
                 <span className="text-xl">{b.emoji}</span>
                 <div>
                   <p className="text-xs font-bold text-slate-900 leading-tight">{b.label}</p>

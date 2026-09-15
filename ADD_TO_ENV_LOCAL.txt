@@ -1,0 +1,4 @@
+# Add this to your existing .env.local file:
+
+# Resend — for sending OTP verification emails (free at resend.com)
+RESEND_API_KEY="re_your_key_here"

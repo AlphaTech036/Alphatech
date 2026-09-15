@@ -1,5 +1,6 @@
-export const dynamic = "force-dynamic";
 // app/api/auth/register/route.ts
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
@@ -26,6 +27,23 @@ export async function POST(req: Request) {
 
     const { name, email, phone, password } = parsed.data;
 
+    // Require a verified OTP for this email before allowing account creation
+    const verifiedOtp = await prisma.emailOTP.findFirst({
+      where: {
+        email,
+        verified: true,
+        createdAt: { gte: new Date(Date.now() - 30 * 60 * 1000) }, // verified within last 30 min
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (!verifiedOtp) {
+      return NextResponse.json(
+        { error: "Please verify your email first." },
+        { status: 400 }
+      );
+    }
+
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {
       return NextResponse.json({ error: "An account with this email already exists" }, { status: 409 });
@@ -34,7 +52,13 @@ export async function POST(req: Request) {
     const passwordHash = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.create({
-      data: { name, email, phone, passwordHash },
+      data: {
+        name,
+        email,
+        phone,
+        passwordHash,
+        emailVerified: new Date(),
+      },
       select: { id: true, name: true, email: true },
     });
 
@@ -44,4 +68,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
-
